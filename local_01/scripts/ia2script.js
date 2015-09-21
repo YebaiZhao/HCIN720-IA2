@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>Paperoids</title>
-    <script type="text/javascript" src="./scripts/paper-full.js"></script>
-    <script type="text/paperscript" canvas="canvas">
 
     //
     //
@@ -45,15 +37,31 @@
 
 
             var myKey;
-            var myFire;
+            /*var myFire;
             /////////////////
-            console.log("keydown!");
-            var socket = io();
-            socket.on("to browser", function(e){
-                console.log(e);   
-                myKey=text(data);  
-                console.log(myKey);
-            };
+            var deviceID = "21001f001647343337363432";
+            var accessToken = "aec31db0e35e7f0969dcfbbf7f417210aa391ac5";
+            var eventSource = new EventSource("https://api.spark.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+
+            eventSource.addEventListener('open', function(e) {
+            console.log("Opened!"); },false);
+            eventSource.addEventListener('error', function(e) {
+            console.log("Errored!"); },false);
+
+            eventSource.addEventListener('Orientation', function(e) {
+                var parsedData = JSON.parse(e.data);
+               
+                myKey=parsedData.data;
+                console.log(myKey); 
+            },true);
+
+            eventSource.addEventListener('Data_2', function(e) {
+                var parsedData = JSON.parse(e.data);
+               
+                myFire=parsedData.Button;
+                console.log(myFire); 
+            },true); */
+
 
     function onKeyUp(event) {
 
@@ -80,13 +88,13 @@
         Bullets.move();
         Rocks.iterateExplosions();
         Ship.checkCollisions();
-        if (myKey==='Landscape Left') {
+        if (myKey==='left') {
             Ship.turnLeft();
         }
-        if (myKey==='Landscape Right') {
+        if (myKey==='right') {
             Ship.turnRight();
         }
-        if (myFire=== "1") {
+        if (Key.isDown('up')) {
             Ship.thrust();
         } else {
             Ship.coast();
@@ -508,81 +516,3 @@
             position.y = bounds.height  + itemBounds.height / 2;
         }
     }
-    </script>
-    <style type="text/css">
-        html,
-        body {
-            margin: 0;
-            overflow: hidden;
-            height: 100%;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        body {
-            background: #000;
-            font-family:Helvetica,Arial;
-        }
-
-        .footer {
-            position:absolute;
-            bottom:0;
-            color:#ff0000;
-            background-color: rgba(60,60,60,0.8);
-            font-size:0.75em;
-            padding:0.5em;
-            color:#ddd;
-            width: 100%
-        }
-
-        .footer a {
-            color: #fff;
-            font-weight:
-            bold; text-decoration: none;
-            border-bottom: 1px solid #555;
-        }
-
-        .footer b {
-            background-color: #660000;
-            padding-left: 0.25em;
-            padding-right: 0.25em;
-        }
-
-        .gameover {
-            display: none;
-            position: absolute;
-            left: 40%;
-            top: 40%;
-            color: #fff;
-            background-color: rgba(60,60,60,0.8);
-            padding: 32px;
-            -moz-border-radius: 12px;
-            -webkit-border-radius: 12px;
-            border-radius: 12px;
-            -moz-background-clip: padding;
-            -webkit-background-clip: padding-box;
-            background-clip: padding-box;
-        }
-
-        .gameover a {
-            color: #fff;
-            font-weight: bold;
-        }
-
-        #stats {
-            position: absolute;
-            left: auto !important;
-            right: 0px;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="canvas" resize stats></canvas>
-    <div id="footer" class="footer"><a href=#">Paperoids</a>.  To Play: <b>&#8592;</b> and <b>&#8594;</b> to rotate.  <b>&#8593;</b> for thrust.  <b>Z</b> to fire. <b>F</b> to show FPS. Follow @<a href="http://twitter.com/#/hirmes">hirmes</a> for updates. Made with the amazing <a href="http://paperjs.org">Paper.js</a></div>
-
-    <div id="gameover" class="gameover">Game Over.  <a href="Paperoids.html">Play again</a>?</div>
-</body>
-</html>
