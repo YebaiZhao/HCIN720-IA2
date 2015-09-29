@@ -33,19 +33,19 @@
 
 
 
-
-
-
             var myKey;
-            var myFire;
+            var myThrust;
+            var myGun;
             /////////////////
             var socket = io();
             socket.on("to browser", function(e){
-                console.log(e);   
-                myKey=text(e);
-
-                console.log(myKey);
-            };
+                console.log(e);
+                var parsedData = JSON.parse(e);
+                myThrust=parsedData.Button1;
+                myGun=parsedData.Button2;
+                myKey=parsedData.Ori;
+            });
+            ////////////////////////under tuning.
 
     function onKeyUp(event) {
 
@@ -53,9 +53,7 @@
             Ship.moveTo(Point.random() * view.size);
             Ship.stop();
         }
-        if (event.key == 'z') {
-            Ship.fire();
-        }
+
         // Show stats:
         if (event.key == 'f') {
             var stats = document.getElementById('stats');
@@ -71,15 +69,21 @@
         Bullets.move();
         Rocks.iterateExplosions();
         Ship.checkCollisions();
-        if (myKey==='Landscape Left') {
+        if (myKey==='Left') {
             Ship.turnLeft();
         }
-        if (myKey==='Landscape Right') {
+        if (myKey==='Right') {
             Ship.turnRight();
         }
-        if (myFire=== "1") {
+        if (myThrust=== 1) {
             Ship.thrust();
-        } else {
+        }
+        if (myGun === 1) {
+            console.log(myGun+"biubiubiu");
+            Ship.fire();
+        }
+
+        else {
             Ship.coast();
         }
         Ship.move();
@@ -446,6 +450,13 @@
             },
             remove: function() {
                 currentLives--;
+             $.post( 
+                "https://api.particle.io/v1/devices/21001f001647343337363432/led7?access_token=aec31db0e35e7f0969dcfbbf7f417210aa391ac5", 
+                {arg: "flash"},
+                function(data){
+                console.log(data);
+            });               
+////////////////////////////////////////////////////////
                 this.display();
                 Ship.destroy();
                 setTimeout( function() {

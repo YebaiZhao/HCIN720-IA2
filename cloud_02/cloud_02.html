@@ -46,6 +46,7 @@
 
             var myKey;
             var myFire;
+            var myGun;
             /////////////////
             var deviceID = "21001f001647343337363432";
             var accessToken = "aec31db0e35e7f0969dcfbbf7f417210aa391ac5";
@@ -55,19 +56,22 @@
             console.log("Opened!"); },false);
             eventSource.addEventListener('error', function(e) {
             console.log("Errored!"); },false);
-            eventSource.addEventListener('Orientation', function(e) {
-                var parsedData = JSON.parse(e.data);
-               
-                myKey=parsedData.data;
-                console.log(myKey); 
-            },true);
 
             eventSource.addEventListener('Data_2', function(e) {
-                var parsedData = JSON.parse(e.data);
-               
-                myFire=parsedData.Button;
-                console.log(myFire); 
+                var rawData= JSON.parse(e.data);
+                console.log(rawData.data); 
+                var parsedData = JSON.parse(rawData.data);
+                console.log(parsedData); 
+                myFire=parsedData.Button1;
+                myGun=parsedData.Button2;
+                myKey=parsedData.Ori;
+
+               // myKey=parsedData.Ori;
+                console.log(myKey,myGun,myFire); 
+                
             },true);
+
+
 
 
     function onKeyUp(event) {
@@ -77,9 +81,7 @@
             Ship.moveTo(Point.random() * view.size);
             Ship.stop();
         }
-        if (event.key == 'z') {
-            Ship.fire();
-        }
+
         // Show stats:
         if (event.key == 'f') {
             var stats = document.getElementById('stats');
@@ -95,15 +97,19 @@
         Bullets.move();
         Rocks.iterateExplosions();
         Ship.checkCollisions();
-        if (myKey==='left') {
+        if (myKey==='Left') {
             Ship.turnLeft();
         }
-        if (myKey==='right') {
+        if (myKey==='Right') {
             Ship.turnRight();
         }
-        if (myFire=== "1") {
+        if (myFire=== 1) {
             Ship.thrust();
-        } else {
+        } 
+        if (myGun === 1) {
+            Ship.fire();
+        }
+        else {
             Ship.coast();
         }
         Ship.move();
