@@ -614,20 +614,22 @@
             console.log("Opened!"); },false);
         	eventSource.addEventListener('error', function(e) {
             console.log("Errored!"); },false);
-            eventSource.addEventListener('Orientation', function(e) {
-            	var parsedData = JSON.parse(e.data);
-            	console.log(parsedData.data); 
+            eventSource.addEventListener('Data_2', function(e) {
+                var rawData= JSON.parse(e.data);
+                console.log(rawData.data); 
+                var parsedData = JSON.parse(rawData.data);
+                console.log(parsedData); 
 
             	if ( scope.enabled === false || scope.enableKeys === false || scope.enablePan === false ) return;
 				
-				switch ( parsedData.data ) {
-				case "up":
+				switch ( parsedData.Ori ) {
+				case "Up":
 					//pan( 0, scope.keyPanSpeed );
 					pan( 0, scope.keyPanSpeed );
 					scope.update();
 					break;
 
-				case "down":
+				case "Down":
 					//rotateDelta.subVectors( [5,6], [5,5] );
 					//constraint.rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed );
 					//constraint.rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
@@ -635,13 +637,13 @@
 					scope.update();
 					break;
 
-				case "left":
+				case "Left":
 					pan( scope.keyPanSpeed, 0 );
 					scope.update();
 
 					break;
 
-				case "right":
+				case "Right":
 					pan( - scope.keyPanSpeed, 0 );
 					scope.update();
 					break;
