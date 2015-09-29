@@ -9,7 +9,7 @@ The Cloud_02 folder contains a fun little game using the Photon as a controller 
 
 The local folder has the local version, with better control and a blinking blue led we your ship died.
 
-Cloud01 page address: https://rawgit.com/YebaiZhao/HCIN720-IA2/master/cloud_01/index.html
+Cloud01 page address: https://rawgit.com/YebaiZhao/HCIN720-IA2/master/cloud_02/cloud_02.html
 
 Cloud02 page address: https://rawgit.com/YebaiZhao/HCIN720-IA2/master/cloud_02/index.html
 
