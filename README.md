@@ -13,4 +13,4 @@ Cloud01 page address: http://rawgit.com/YebaiZhao/HCIN720-IA2/master/cloud_01/in
 
 Cloud02 page address: https://rawgit.com/YebaiZhao/HCIN720-IA2/master/cloud_02/cloud_02.html
 
-!(pic.jpg)
+![](pic.jpg)
