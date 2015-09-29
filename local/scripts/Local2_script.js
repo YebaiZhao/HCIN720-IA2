@@ -17,8 +17,8 @@
     //
 
     var presets = {
-        speed: 0.2,
-        maxRockSpeed: 4.5,
+        speed: 0.1,
+        maxRockSpeed: 2,
         rockCount: 6,
         lives: 10,
         freeShipScore: 10000,

@@ -606,21 +606,26 @@
 		function onKeyDown( event ) {
 			//var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
 			/////////////////
+			var myKey;
 			console.log("keydown!");
-			var socket = io();
+            var socket = io();
             socket.on("to browser", function(e){
-            	console.log(e);   	
+                var parsedData = JSON.parse(e);
+                myKey=parsedData.Ori;
+                console.log(myKey);
+            	}
+            ); 	
             	//if ( scope.enabled === false || scope.enableKeys === false || scope.enablePan === false ) return;
 				
-				switch (String(e)) {
-				case "Portrait Up":
+				switch (myKey) {
+				case 'Up':
 					console.log("UUUUUUUp");
 					//pan( 0, scope.keyPanSpeed );
 					pan( 0, scope.keyPanSpeed );
 					scope.update();
 					break;
 
-				case "Portrait Down":
+				case 'Down':
 					//rotateDelta.subVectors( [5,6], [5,5] );
 					//constraint.rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientWidth * scope.rotateSpeed );
 					//constraint.rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight * scope.rotateSpeed );
@@ -628,29 +633,29 @@
 					scope.update();
 					break;
 
-				case "Landscape Left":
+				case 'Left':
 					pan( scope.keyPanSpeed, 0 );
 					scope.update();
 
 					break;
 
-				case "Landscape Right":
+				case 'Right':
 					pan( - scope.keyPanSpeed, 0 );
 					scope.update();
 					break;
 
 				default:
-					console.log(String(e));
+					console.log(myKey);
 				
 					setTimeout(500);
-				}
+				};
 
-            });
+            }
         	
         
 			
 
-		}
+		
 
 		function touchstart( event ) {
 
